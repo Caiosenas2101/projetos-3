@@ -1,5 +1,5 @@
 # projetos-3
-Projetos 3, Grupo 13
+Grupo 13
 # Equipe:
 
 * CC - Pedro Barreto (@cesar.school)
