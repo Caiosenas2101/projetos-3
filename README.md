@@ -14,3 +14,11 @@ Grupo 13
 * DES - Felipe Asfora (faar@cesar.school)
 * DES - Jõao Lapenda (@cesar.school)
 * DES - Rafael Arcoverde (racs@cesar.schol)
+
+ <p>LINKS </p>
+    <li>
+    <a  href="[https://wearswap.atlassian.net/jira/software/projects/KAN/boards/1](https://www.canva.com/design/DAGgIUxUIm4/Shtxs3phaePDSQQl5AnQHg/edit?utm_content=DAGgIUxUIm4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)"
+      >Link da linha do tempo</a
+    >
+    >
+  </li>
