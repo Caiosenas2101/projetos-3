@@ -4,7 +4,7 @@ Grupo 13
 
 * CC - Pedro Barreto (@cesar.school)
 * CC - Caio Sena (css4@cesar.school)
-* CC - Raul Vila Nova (@cesar.school)
+* CC - Raul Vila Nova (rvnc@cesar.school)
 * CC - Rodrigo Torres (rtgf@cesar.schol)
 * CC - João Marcelo (@cesar.school)
 * CC - Victor Paes (vplpc@cesar.school)
