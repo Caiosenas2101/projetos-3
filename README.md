@@ -15,24 +15,19 @@ Grupo 13
 * DES - Jõao Lapenda (jbcdnl@cesar.school)
 * DES - Rafael Arcoverde (racs@cesar.schol)
 
- <p>Links </p>
-    <li>
-    <a  href="https://www.canva.com/design/DAGgIUxUIm4/Shtxs3phaePDSQQl5AnQHg/edit?utm_content=DAGgIUxUIm4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton "
-      >Linha do tempo</a
-    >
-        <li>
-    <a  href="https://drive.google.com/drive/folders/105pIkqweFN8kbF1bdyip5qcCQrdshs5u?usp=sharing"
-      >Link do Drive</a
-    >
-  
-  </li>
-   <li>
-    <a  href="https://www.canva.com/design/DAGgIUxUIm4/Shtxs3phaePDSQQl5AnQHg/edit?utm_content=DAGgIUxUIm4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton "
-      ></a
-    >
-        <li>
-    <a  href="[https://drive.google.com/drive/folders/105pIkqweFN8kbF1bdyip5qcCQrdshs5u?usp=sharing](https://miro.com/welcomeonboard/VmZUTGR3WW9NaWlmMEJRdEhJUXdPeGFydm5SUHY5WExSOEg4a1AzbzhNclBRQWRaWUpYdWMrbTNvSHlpNnNKWGJ6SU0yekczTTVBa1l1cW5ldWVCYmdnbXp1OUtXMS9PTWVNRnE3UVdoUjAzRk1YL3J2MXJGRDQxaTJFRjhiVzRnbHpza3F6REdEcmNpNEFOMmJXWXBBPT0hdjE=?share_link_id=82533199994 )"
-      >Link do Miro</a
-    >
-  
-  </li>
+<p>Links </p>
+<li>
+    <a href="https://www.canva.com/design/DAGgIUxUIm4/Shtxs3phaePDSQQl5AnQHg/edit?utm_content=DAGgIUxUIm4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">
+        Linha do tempo
+    </a>
+</li>
+<li>
+    <a href="https://drive.google.com/drive/folders/105pIkqweFN8kbF1bdyip5qcCQrdshs5u?usp=sharing">
+        Link do Drive
+    </a>
+</li>
+<li>
+    <a href="https://miro.com/welcomeonboard/VmZUTGR3WW9NaWlmMEJRdEhJUXdPeGFydm5SUHY5WExSOEg4a1AzbzhNclBRQWRaWUpYdWMrbTNvSHlpNnNKWGJ6SU0yekczTTVBa1l1cW5ldWVCYmdnbXp1OUtXMS9PTWVNRnE3UVdoUjAzRk1YL3J2MXJGRDQxaTJFRjhiVzRnbHpza3F6REdEcmNpNEFOMmJXWXBBPT0hdjE=?share_link_id=82533199994">
+        Link do Miro
+    </a>
+</li>
