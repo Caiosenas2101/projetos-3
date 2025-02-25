@@ -12,7 +12,7 @@ Grupo 13
   
 * DES - Bernardo Marques de Araujo (bma2@cesar.school)
 * DES - Felipe Asfora (faar@cesar.school)
-* DES - Jõao Lapenda (@cesar.school)
+* DES - Jõao Lapenda (jbcdnl@cesar.school)
 * DES - Rafael Arcoverde (racs@cesar.schol)
 
  <p>Links </p>
