@@ -2,7 +2,7 @@
 Grupo 13
 # Equipe:
 
-* CC - Pedro Barreto (@cesar.school)
+
 * CC - Caio Sena (css4@cesar.school)
 * CC - Raul Vila Nova (rvnc@cesar.school)
 * CC - Rodrigo Torres (rtgf@cesar.schol)
