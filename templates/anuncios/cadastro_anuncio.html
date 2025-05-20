@@ -1,0 +1,25 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Cadastrar Anúncio - Murall{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px;">
+    <h2 class="fw-bold mb-4">Cadastrar novo anúncio</h2>
+    <form method="post" enctype="multipart/form-data" class="mb-3" role="form" autocomplete="off">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label" aria-label="{{ field.label }}">{{ field.label }}</label>
+                {{ field.errors }}
+                {{ field|add_class:'form-control'|attr:'autofocus' if forloop.first else field|add_class:'form-control' }}
+                {% if field.help_text %}
+                    <small id="help-{{ field.name }}" class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary w-100">Salvar</button>
+    </form>
+    <a href="{% url 'anuncios' %}" class="btn btn-link">Voltar para meus anúncios</a>
+</div>
+{% endblock %} 

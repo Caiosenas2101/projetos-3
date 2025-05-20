@@ -1,0 +1,56 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Curtir Sites - Murall{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold mb-4">Curtir outros sites</h2>
+<div class="row g-4">
+    {% for site in sites %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card site-card position-relative">
+            <a href="{% url 'site_resumo' site.pk %}">
+                {% if site.imagem %}
+                    <img src="{{ site.imagem.url }}" class="card-img-top" alt="{{ site.nome }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x200?text=Site+Logo" class="card-img-top" alt="{{ site.nome }}">
+                {% endif %}
+            </a>
+            <div class="card-body">
+                <h5 class="card-title mb-1"><a href="{% url 'site_resumo' site.pk %}" class="text-decoration-none">{{ site.nome }}</a></h5>
+                <p class="card-text small text-muted mb-2">{{ site.url }}</p>
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    {% if site.pk in sites_curtidos %}
+                        <button class="btn btn-success btn-sm" disabled><i class="fas fa-heart"></i> Curtiu</button>
+                    {% else %}
+                        <button class="btn btn-outline-danger btn-sm btn-curtir" data-site="{{ site.pk }}">
+                            <i class="fas fa-heart"></i> Curtir
+                        </button>
+                    {% endif %}
+                    <span class="badge bg-danger curtidas-contador" id="curtidas-{{ site.pk }}">{{ site.total_curtidas|default:0 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center text-muted">Nenhum site disponível para curtir.</div>
+    {% endfor %}
+</div>
+<script>
+    document.querySelectorAll('.btn-curtir').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const siteId = this.getAttribute('data-site');
+            fetch(`/sites/curtir/${siteId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('curtidas-' + siteId).textContent = data.curtidas;
+            });
+        });
+    });
+</script>
+{% endblock %} 

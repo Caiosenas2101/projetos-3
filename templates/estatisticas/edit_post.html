@@ -1,0 +1,28 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Editar Post - Murall{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px;">
+    <h2 class="fw-bold mb-4">Editar post</h2>
+    <form method="post" class="mb-3" autocomplete="off">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="conteudo" class="form-label">Mensagem</label>
+            <input type="text" name="conteudo" id="conteudo" class="form-control" maxlength="280" value="{{ post.conteudo }}">
+        </div>
+        <div class="mb-3">
+            <label for="site_divulgado" class="form-label">Divulgar um dos meus sites</label>
+            <select name="site_divulgado" id="site_divulgado" class="form-select">
+                <option value="">Nenhum</option>
+                {% for site in meus_sites %}
+                    <option value="{{ site.pk }}" {% if post.site_divulgado and post.site_divulgado.pk == site.pk %}selected{% endif %}>{{ site.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Salvar alterações</button>
+    </form>
+    <a href="{% url 'dashboard' %}" class="btn btn-link">Voltar para o feed</a>
+</div>
+{% endblock %} 

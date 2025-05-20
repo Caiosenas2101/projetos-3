@@ -1,0 +1,20 @@
+{% load static %}
+<aside class="sidebar-murall">
+    <div class="logo">
+        <a href="{% url 'dashboard' %}">
+            <img src="{% static 'img/murall-logo.svg' %}" alt="Murall" height="40" class="me-2" style="max-width:160px;">
+        </a>
+    </div>
+    <nav class="nav flex-column">
+        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}"><i class="fas fa-home"></i> <span>Home</span></a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'curtidas' %}active{% endif %}" href="{% url 'curtidas' %}"><i class="fas fa-globe"></i> <span>Sites parceiros</span></a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'notificacoes' %}active{% endif %}" href="{% url 'notificacoes' %}"><i class="fas fa-bell"></i> <span>Notificações</span></a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'estatisticas' %}active{% endif %}" href="{% url 'estatisticas' %}"><i class="fas fa-chart-line"></i> <span>Estatísticas</span></a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'suporte' %}active{% endif %}" href="{% url 'contato' %}"><i class="fas fa-headset"></i> <span>Suporte</span></a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'meus_sites' %}active{% endif %}" href="{% url 'meus_sites' %}"><i class="fas fa-layer-group"></i> <span>Meus sites</span></a>
+    </nav>
+    <div class="mt-auto mb-4">
+        <a class="nav-link" href="{% url 'perfil' %}"><i class="fas fa-user"></i> <span>Perfil</span></a>
+        <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a>
+    </div>
+</aside> 
