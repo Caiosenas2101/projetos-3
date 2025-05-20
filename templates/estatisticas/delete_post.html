@@ -1,0 +1,16 @@
+{% extends 'base_sidebar.html' %}
+{% block title %}Excluir Post - Murall{% endblock %}
+{% block content %}
+<div class="container" style="max-width: 500px;">
+    <h2 class="fw-bold mb-4">Excluir post</h2>
+    <div class="alert alert-danger">
+        Tem certeza que deseja excluir este post?
+        <div class="mt-2"><strong>{{ post.conteudo|default:'[Divulgação de site]' }}</strong></div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, excluir</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %} 

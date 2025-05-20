@@ -1,0 +1,24 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Contato - Suporte Murall{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px;">
+    <h2 class="fw-bold mb-4">Entre em contato conosco</h2>
+    <form method="post" class="mb-3" role="form" autocomplete="off">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label" aria-label="{{ field.label }}">{{ field.label }}</label>
+                {{ field.errors }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small id="help-{{ field.name }}" class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary w-100">Enviar</button>
+    </form>
+</div>
+{% endblock %} 

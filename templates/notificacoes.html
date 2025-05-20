@@ -1,0 +1,16 @@
+{% extends 'base_sidebar.html' %}
+{% block title %}Notificações - Murall{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="fw-bold mb-4">Notificações</h2>
+    {% if notificacoes %}
+        <ul class="list-group">
+            {% for n in notificacoes %}
+                <li class="list-group-item">{{ n }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info">Nenhuma notificação no momento.</div>
+    {% endif %}
+</div>
+{% endblock %} 
