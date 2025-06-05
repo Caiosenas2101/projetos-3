@@ -8,12 +8,15 @@
     --cinza-texto: #222;
 }
 
-body {
-    background: var(--cinza-bg) !important;
-    color: var(--cinza-texto);
-    min-height: 100vh;
+.layout-flex {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    height: 100vh !important;
+    min-height: 100vh !important;
+}
+
+html, body, .layout-flex {
+    background: #fff !important;
 }
 
 main {
@@ -141,20 +144,21 @@ main {
     }
 }
 
-/* Sidebar fixa */
+/* Sidebar restaurada para o estado pós-login/cadastro */
 .sidebar-murall {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 220px;
-    background: #222;
-    color: #fff;
+    background: #fff;
+    color: #222;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 32px;
     z-index: 1000;
+    border-right: 1.5px solid #ececec;
 }
 .sidebar-murall .logo {
     margin-bottom: 32px;
@@ -163,7 +167,7 @@ main {
     width: 100%;
 }
 .sidebar-murall .nav-link {
-    color: #fff;
+    color: #444;
     font-size: 1.1rem;
     padding: 14px 32px;
     display: flex;
@@ -173,37 +177,32 @@ main {
     transition: background 0.2s;
 }
 .sidebar-murall .nav-link.active, .sidebar-murall .nav-link:hover {
-    background: #D32F2F;
-    color: #fff;
+    background: #f5f5f5;
+    color: #D35400 !important;
 }
 .sidebar-murall .nav-link i {
     font-size: 1.3rem;
 }
-
-/* Conteúdo principal com sidebar */
+.sidebar-murall .mt-auto {
+    margin-top: auto;
+    margin-bottom: 24px;
+}
 .with-sidebar {
     margin-left: 220px;
     padding: 32px 24px 24px 24px;
     min-height: 100vh;
     background: #f8f9fa;
 }
+
+/* Conteúdo principal com sidebar */
+.with-sidebar {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    background: #fff !important;
+    padding: 32px 24px 24px 24px;
+    min-height: 100vh;
+}
 @media (max-width: 900px) {
-    .sidebar-murall {
-        width: 60px;
-        padding-top: 16px;
-    }
-    .sidebar-murall .logo {
-        margin-bottom: 16px;
-    }
-    .sidebar-murall .nav-link {
-        padding: 12px 10px;
-        font-size: 1.2rem;
-        justify-content: center;
-        gap: 0;
-    }
-    .sidebar-murall .nav-link span {
-        display: none;
-    }
     .with-sidebar {
         margin-left: 60px;
         padding: 24px 8px 8px 8px;
@@ -289,14 +288,6 @@ main {
     font-size: 3rem;
     border-radius: 50%;
     margin: 0 auto 1rem auto;
-}
-
-/* Sidebar: destaque da página ativa */
-.sidebar-murall .nav-link.active {
-    background: #fff;
-    color: #D32F2F !important;
-    font-weight: bold;
-    border-right: 4px solid #D32F2F;
 }
 
 /* Animação suave em cards e botões */
@@ -409,4 +400,112 @@ footer.bg-light {
     .como-funciona-section .step-box {
         margin-bottom: 1.5rem;
     }
+}
+
+/* Remover estilos customizados da coluna de sugestões */
+.suggestions-box, .suggestion-title-row, .suggestion-title, .suggestion-action, .suggestion-list, .suggestion-item, .suggestion-icon, .suggestion-name {
+    all: unset;
+}
+
+/* Campo de postagem */
+.feed-post-box {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 24px 24px 16px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+.feed-post-icon {
+    font-size: 2.1rem;
+    color: #D35400;
+    margin-right: 12px;
+}
+.feed-post-input {
+    border: none;
+    border-radius: 12px;
+    background: #F5F5F5;
+    padding: 16px 18px;
+    font-size: 1.1rem;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.feed-post-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+.feed-post-action-btn {
+    background: #FFF4ED;
+    color: #D35400;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+.feed-post-action-btn:hover {
+    background: #D35400;
+    color: #fff;
+}
+/* Cards do feed */
+.feed-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: none;
+    margin-bottom: 32px;
+    padding: 20px 24px 16px 24px;
+}
+.feed-card .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.feed-card .card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+.feed-card .card-action-btn {
+    background: #FFF4ED;
+    color: #D35400;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+.feed-card .card-action-btn:hover {
+    background: #D35400;
+    color: #fff;
+}
+
+/* Tipografia menus e títulos */
+.sidebar-murall .nav-link, .feed-card .card-title, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+}
+.sidebar-murall .nav-link {
+    font-size: 1.22rem;
+}
+.feed-card .card-title, h2 {
+    font-size: 1.25rem;
+}
+
+a, a:visited, a:active {
+    text-decoration: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+a:focus {
+    outline: none !important;
+    box-shadow: none !important;
 } 
