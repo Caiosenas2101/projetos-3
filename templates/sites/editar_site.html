@@ -1,0 +1,25 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Editar Site - Murall{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px;">
+    <h2 class="fw-bold mb-4">Editar site</h2>
+    <form method="post" enctype="multipart/form-data" class="mb-3">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field.errors }}
+                <input {% if forloop.first %}autofocus{% endif %} type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control" value="{{ field.value|default:'' }}" {% if field.field.required %}required{% endif %} placeholder="{{ field.label }}">
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary w-100">Salvar alterações</button>
+    </form>
+    <a href="{% url 'meus_sites' %}" class="btn btn-link">Voltar para meus sites</a>
+</div>
+{% endblock %} 

@@ -1,0 +1,29 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Meus Chamados - Suporte Murall{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold mb-4">Acompanhe seus chamados</h2>
+<div class="row g-4">
+    {% for chamado in chamados %}
+    <div class="col-12">
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center {% if chamado.status == 'aberto' %}bg-warning text-dark{% elif chamado.status == 'respondido' %}bg-info text-dark{% else %}bg-danger text-white{% endif %}">
+                <span>Chamado #{{ chamado.pk }}</span>
+                <span class="badge {% if chamado.status == 'aberto' %}bg-warning text-dark{% elif chamado.status == 'respondido' %}bg-info text-dark{% else %}bg-danger{% endif %}">{{ chamado.get_status_display }}</span>
+            </div>
+            <div class="card-body">
+                <p class="mb-1"><strong>Mensagem:</strong> {{ chamado.mensagem }}</p>
+                {% if chamado.resposta %}
+                <div class="alert alert-success mt-2 mb-0"><strong>Resposta:</strong> {{ chamado.resposta }}</div>
+                {% endif %}
+                <p class="text-muted small mt-2 mb-0">Enviado em {{ chamado.data_criacao|date:'d/m/Y H:i' }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center text-muted">Nenhum chamado encontrado.</div>
+    {% endfor %}
+</div>
+{% endblock %} 

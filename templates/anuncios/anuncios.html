@@ -1,0 +1,40 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}Meus Anúncios - Murall{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Meus anúncios</h2>
+    <a href="{% url 'cadastrar_anuncio' %}" class="btn btn-dark rounded-circle" title="Adicionar anúncio" style="width:48px; height:48px; display:flex; align-items:center; justify-content:center; font-size:2rem;">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
+<div class="row g-4">
+    {% for anuncio in anuncios %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card site-card position-relative">
+            {% if anuncio.imagem %}
+                <img src="{{ anuncio.imagem.url }}" class="card-img-top" alt="{{ anuncio.titulo }}">
+            {% else %}
+                <img src="https://via.placeholder.com/400x200?text=Anuncio" class="card-img-top" alt="{{ anuncio.titulo }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title mb-1">{{ anuncio.titulo }}</h5>
+                <span class="badge {% if anuncio.status == 'ativo' %}bg-success{% elif anuncio.status == 'expirado' %}bg-secondary{% else %}bg-warning text-dark{% endif %}">
+                    {{ anuncio.get_status_display }}
+                </span>
+                <p class="mt-2 mb-1 small">{{ anuncio.site.nome }}</p>
+                <p class="mb-1 small text-muted">{{ anuncio.data_inicio }} até {{ anuncio.data_fim }}</p>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="{% url 'editar_anuncio' anuncio.pk %}" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'excluir_anuncio' anuncio.pk %}" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center text-muted">Nenhum anúncio cadastrado ainda.</div>
+    {% endfor %}
+</div>
+{% endblock %} 

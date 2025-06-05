@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row align-items-center py-5 hero-bg mb-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold mb-4">Gerencie seus sites parceiros com o Murall</h1>
+            <p class="lead mb-4">Uma plataforma completa para gerenciar sites parceiros, anúncios e estatísticas. Tudo em um só lugar, de forma simples e eficiente.</p>
+            {% if not user.is_authenticated %}
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'cadastro' %}" class="btn btn-primary btn-lg me-md-2">Começar Agora</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Fazer Login</a>
+                </div>
+            {% else %}
+                <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">Ir para o Dashboard</a>
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static 'img/hero-illustration.svg' %}" alt="Ilustração" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row py-5">
+        <div class="col-12 text-center mb-5">
+            <h2 class="display-5 fw-bold">Recursos Principais</h2>
+            <p class="lead">Tudo que você precisa para gerenciar seus sites parceiros</p>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-globe fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title h4">Gerenciamento de Sites</h3>
+                    <p class="card-text">Cadastre e gerencie seus sites parceiros de forma simples e organizada.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-ad fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title h4">Sistema de Anúncios</h3>
+                    <p class="card-text">Crie e gerencie anúncios para exibição em seus sites parceiros.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                    <h3 class="card-title h4">Estatísticas Detalhadas</h3>
+                    <p class="card-text">Acompanhe o desempenho dos seus sites com gráficos e métricas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Como Funciona -->
+    <section class="como-funciona-section py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-6 fw-bold mb-3">Como funciona o Murall?</h2>
+                    <p class="lead">Veja como é simples e completo gerenciar seus sites parceiros, anúncios e estatísticas na plataforma.</p>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center align-items-stretch">
+                <div class="col-md-2 col-12 text-center">
+                    <div class="step-box h-100 p-4 bg-white rounded-4 shadow-sm">
+                        <div class="step-icon mb-3"><i class="fas fa-user-plus fa-2x"></i></div>
+                        <h5 class="fw-bold mb-2">1. Cadastro e Login</h5>
+                        <p class="mb-0">Crie sua conta gratuitamente, faça login e acesse seu painel exclusivo.</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-12 text-center">
+                    <div class="step-box h-100 p-4 bg-white rounded-4 shadow-sm">
+                        <div class="step-icon mb-3"><i class="fas fa-globe fa-2x"></i></div>
+                        <h5 class="fw-bold mb-2">2. Cadastre seus Sites</h5>
+                        <p class="mb-0">Adicione e gerencie todos os seus sites parceiros, com informações completas e personalização.</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-12 text-center">
+                    <div class="step-box h-100 p-4 bg-white rounded-4 shadow-sm">
+                        <div class="step-icon mb-3"><i class="fas fa-bullhorn fa-2x"></i></div>
+                        <h5 class="fw-bold mb-2">3. Crie Anúncios</h5>
+                        <p class="mb-0">Crie banners ou textos, defina regras de exibição e associe aos sites desejados.</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-12 text-center">
+                    <div class="step-box h-100 p-4 bg-white rounded-4 shadow-sm">
+                        <div class="step-icon mb-3"><i class="fas fa-chart-line fa-2x"></i></div>
+                        <h5 class="fw-bold mb-2">4. Acompanhe Resultados</h5>
+                        <p class="mb-0">Visualize gráficos, métricas de desempenho, cliques, impressões e resultados em tempo real.</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-12 text-center">
+                    <div class="step-box h-100 p-4 bg-white rounded-4 shadow-sm">
+                        <div class="step-icon mb-3"><i class="fas fa-headset fa-2x"></i></div>
+                        <h5 class="fw-bold mb-2">5. Interaja e Receba Suporte</h5>
+                        <p class="mb-0">Receba notificações, curta anúncios, acesse o suporte integrado e mantenha seu perfil atualizado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <div class="row py-5">
+        <div class="col-12 text-center">
+            <div class="p-5 bg-light rounded-3">
+                <h2 class="display-6 fw-bold mb-4">Pronto para começar?</h2>
+                <p class="lead mb-4">Junte-se a milhares de usuários que já estão usando o Murall para gerenciar seus sites.</p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'cadastro' %}" class="btn btn-primary btn-lg">Criar Conta Grátis</a>
+                {% else %}
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">Acessar Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

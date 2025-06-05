@@ -1,0 +1,26 @@
+{% extends 'base_sidebar.html' %}
+{% load static %}
+
+{% block title %}{{ site.nome }} - Perfil do Site | Murall{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card mb-4">
+            {% if site.imagem %}
+                <img src="{{ site.imagem.url }}" class="card-img-top" alt="{{ site.nome }}" style="max-height:200px; object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+                <h2 class="card-title fw-bold">{{ site.nome }}</h2>
+                <p class="mb-2"><a href="{{ site.url }}" target="_blank" class="text-decoration-none"><i class="fas fa-globe"></i> {{ site.url }}</a></p>
+                <span class="badge {% if site.status == 'ativo' %}bg-success{% elif site.status == 'inativo' %}bg-secondary{% else %}bg-warning text-dark{% endif %}">{{ site.get_status_display }}</span>
+                <p class="mt-3">{{ site.descricao }}</p>
+                <div class="mt-3">
+                    <a href="{% url 'perfil_publico' site.usuario.username %}" class="btn btn-outline-primary btn-sm"><i class="fas fa-user"></i> Ver perfil do dono</a>
+                </div>
+            </div>
+        </div>
+        <!-- Destaque: pode adicionar estatísticas, anúncios, etc. -->
+    </div>
+</div>
+{% endblock %} 
