@@ -1,0 +1,37 @@
+/* home.css - estilos exclusivos da página inicial */
+.hero-bg {
+    background: none !important;
+    min-height: 420px;
+    border-radius: 24px;
+    box-shadow: 0 4px 32px rgba(211,84,0,0.07);
+    position: relative;
+    overflow: hidden;
+}
+.hero-bg::after {
+    content: none;
+}
+.home-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+@media (max-width: 900px) {
+    .home-container {
+        max-width: 98vw;
+        padding: 0 2vw;
+    }
+    .hero-bg {
+        min-height: 260px;
+        border-radius: 12px;
+    }
+}
+.card .fa-globe,
+.card .fa-ad,
+.card .fa-chart-line,
+.como-funciona-section .fa-user-plus,
+.como-funciona-section .fa-globe,
+.como-funciona-section .fa-bullhorn,
+.como-funciona-section .fa-chart-line,
+.como-funciona-section .fa-headset {
+    color: var(--laranja) !important;
+} 

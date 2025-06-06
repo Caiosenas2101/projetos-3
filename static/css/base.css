@@ -1,0 +1,59 @@
+/* base.css - estilos globais e utilitários */
+body, input, button, .auth-link, .auth-box, .auth-logo, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    box-sizing: border-box;
+}
+:root {
+    --laranja: #d35400;
+    --vermelho: #D32F2F;
+    --cinza-escuro: #54595F;
+    --cinza-claro: #f4f8ff;
+}
+body {
+    background: #fff;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+.navbar, .navbar * {
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+footer.bg-light {
+    background: #f8f9fa !important;
+    color: #222;
+}
+.btn, .btn-primary, .btn-outline-primary {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.btn-primary {
+    background: var(--laranja);
+    border: none;
+}
+.btn-primary:hover {
+    background: #b34700;
+}
+.btn-outline-primary {
+    color: var(--laranja);
+    border: 2px solid var(--laranja);
+}
+.btn-outline-primary:hover {
+    background: var(--laranja);
+    color: #fff;
+}
+.form-control:focus {
+    border-color: var(--laranja);
+    box-shadow: 0 0 0 0.2rem rgba(211,84,0,0.10);
+}
+.toast {
+    opacity: 0.98;
+    font-size: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+@media (max-width: 600px) {
+    body {
+        font-size: 0.97rem;
+    }
+} 

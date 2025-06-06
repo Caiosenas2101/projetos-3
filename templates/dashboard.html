@@ -3,6 +3,10 @@
 
 {% block title %}Dashboard - Murall{% endblock %}
 
+{% block extra_css %}
+<link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
     <div class="row">
@@ -12,147 +16,149 @@
             </a>
         </div>
         <!-- Feed Central -->
-        <div class="col-lg-7 mb-4">
-            <div class="card mb-4">
+        <div class="col-lg-7 mb-4" style="padding-left:0 !important; margin-left:0 !important;">
+            <div class="card mb-4 dashboard-feed-card">
                 <div class="card-body d-flex align-items-center">
-                    <img src="{% static 'img/murall-logo.svg' %}" alt="Logo" width="48" class="me-3">
-                    <form method="post" class="d-flex flex-grow-1 align-items-center" autocomplete="off">
+                    <span class="post-user-avatar d-flex align-items-center justify-content-center me-1" style="min-width:48px; min-height:48px;">
+                        {% if user.perfil.foto %}
+                            <img src="{{ user.perfil.foto.url }}" alt="Foto de perfil" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
+                        {% else %}
+                            <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil padrão" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
+                        {% endif %}
+                    </span>
+                    <form method="post" class="d-flex flex-grow-1 align-items-center gap-2 flex-wrap post-form-main mb-3" autocomplete="off" style="min-width:0;">
                         {% csrf_token %}
-                        <input type="text" name="conteudo" class="form-control me-2" placeholder="O que seu site está fazendo?" maxlength="280">
-                        <select name="site_divulgado" class="form-select me-2" style="max-width:220px;" aria-label="Divulgar um site">
+                        <input type="text" name="conteudo" class="form-control post-input flex-grow-1" placeholder="O que seu site está fazendo?" maxlength="280" style="min-width:140px;">
+                        <select name="site_divulgado" class="form-select post-select" style="max-width:180px; min-width:110px;">
                             <option value="">Divulgar um dos meus sites...</option>
                             {% for site in meus_sites %}
                                 <option value="{{ site.pk }}">{{ site.nome }}</option>
                             {% endfor %}
                         </select>
-                        <button class="btn btn-primary" type="submit">Postar</button>
+                        <button class="btn btn-primary post-btn" type="submit">Postar</button>
                     </form>
                 </div>
             </div>
+            <hr class="post-form-divider mt-0 mb-4">
             {% for post in posts %}
-            <div class="card mb-4" id="post-{{ post.pk }}">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                        {% if post.autor.perfil.foto %}
-                            <img src="{{ post.autor.perfil.foto.url }}" alt="User" class="rounded-circle me-2" width="40" height="40">
+            <div class="post-card bg-white rounded shadow-sm p-3 mb-4" style="border: 1.5px solid #ececec;">
+                <div class="d-flex align-items-center mb-2">
+                    {% if post.autor.perfil.foto %}
+                        <img src="{{ post.autor.perfil.foto.url }}" alt="User" class="rounded-circle me-2" width="40" height="40">
+                    {% else %}
+                        <img src="{% static 'img/default-profile.png' %}" alt="User" class="rounded-circle me-2" width="40" height="40">
+                    {% endif %}
+                    <div class="flex-grow-1">
+                        <strong>{{ post.autor.get_full_name|default:post.autor.username }}</strong> <span class="text-muted small">• {{ post.data_criacao|timesince }} atrás</span>
+                    </div>
+                    {% if user == post.autor %}
+                        <div class="ms-2">
+                            <a href="{% url 'edit_post' post.pk %}" class="btn btn-outline-dark btn-sm" title="Editar post"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-danger btn-sm" title="Apagar post"><i class="fas fa-trash"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- Bloco do Site -->
+                {% if post.site_divulgado %}
+                <div class="d-flex align-items-center mb-2 pb-2 border-bottom" style="border-color: #f0f0f0 !important;">
+                    <a href="{% url 'site_resumo' post.site_divulgado.pk %}">
+                        {% if post.site_divulgado.imagem %}
+                            <img src="{{ post.site_divulgado.imagem.url }}" alt="{{ post.site_divulgado.nome }}" class="rounded me-3" style="width:56px; height:56px; object-fit:cover;">
                         {% else %}
-                            <img src="{% static 'img/default-profile.png' %}" alt="User" class="rounded-circle me-2" width="40" height="40">
+                            <img src="https://via.placeholder.com/56x56?text=Site" alt="{{ post.site_divulgado.nome }}" class="rounded me-3">
                         {% endif %}
-                        <div class="flex-grow-1">
-                            <strong>{{ post.autor.get_full_name|default:post.autor.username }}</strong> <span class="text-muted small">• {{ post.data_criacao|timesince }} atrás</span>
-                        </div>
-                        {% if user == post.autor %}
-                            <div class="ms-2">
-                                <a href="{% url 'edit_post' post.pk %}" class="btn btn-outline-dark btn-sm" title="Editar post"><i class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-danger btn-sm" title="Apagar post"><i class="fas fa-trash"></i></a>
-                            </div>
-                        {% endif %}
+                    </a>
+                    <div>
+                        <a href="{% url 'site_resumo' post.site_divulgado.pk %}" target="_blank" class="fw-bold h6 text-decoration-none mb-0">{{ post.site_divulgado.nome }}</a>
+                        <p class="mb-0 small text-muted">{{ post.site_divulgado.descricao|truncatechars:80 }}</p>
                     </div>
-                    {% if post.site_divulgado %}
-                    <div class="card mb-3 border border-primary bg-light">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-auto">
-                                <a href="{% url 'site_resumo' post.site_divulgado.pk %}">
-                                    {% if post.site_divulgado.imagem %}
-                                        <img src="{{ post.site_divulgado.imagem.url }}" alt="{{ post.site_divulgado.nome }}" class="rounded me-3" style="width:80px; height:80px; object-fit:cover;">
-                                    {% else %}
-                                        <img src="https://via.placeholder.com/80x80?text=Site" alt="{{ post.site_divulgado.nome }}" class="rounded me-3">
+                </div>
+                {% endif %}
+                {% if post.conteudo %}<p class="mb-2">{{ post.conteudo }}</p>{% endif %}
+                {% if post.imagem %}
+                <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-fluid rounded mb-2">
+                {% endif %}
+                <!-- Bloco de Comentários -->
+                <div class="comentarios-lista mt-3 p-3 rounded" style="background: #fafbfc; border: 1px solid #f0f0f0;">
+                    <h6 class="fw-bold mb-2" style="color: #D35400;">Comentários</h6>
+                    {% for comentario in post.comentarios.all %}
+                    {% if not comentario.comentario_pai %}
+                    <div class="d-flex align-items-start mb-2 pb-2 border-bottom" style="border-color: #f0f0f0 !important;">
+                        {% if comentario.autor.perfil.foto %}
+                            <img src="{{ comentario.autor.perfil.foto.url }}" alt="User" class="rounded-circle me-2" width="32" height="32">
+                        {% else %}
+                            <img src="{% static 'img/default-profile.png' %}" alt="User" class="rounded-circle me-2" width="32" height="32">
+                        {% endif %}
+                        <div class="bg-light rounded px-3 py-2 flex-grow-1 w-100">
+                            <div class="d-flex justify-content-between align-items-start w-100">
+                                <div>
+                                    <strong>{{ comentario.autor.get_full_name|default:comentario.autor.username }}</strong>
+                                    <span class="text-muted small">• {{ comentario.data_criacao|timesince }} atrás</span>
+                                </div>
+                                <div class="ms-2">
+                                    {% if user == comentario.autor or user == post.autor %}
+                                    <form method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="delete_comentario_id" value="{{ comentario.pk }}">
+                                        <button type="submit" class="btn btn-link btn-sm text-danger p-0" title="Excluir comentário"><i class="fas fa-trash"></i></button>
+                                    </form>
                                     {% endif %}
-                                </a>
+                                </div>
                             </div>
-                            <div class="col">
-                                <a href="{% url 'site_resumo' post.site_divulgado.pk %}" target="_blank" class="fw-bold h5 text-decoration-none">{{ post.site_divulgado.nome }}</a>
-                                <p class="mb-1 small text-muted">{{ post.site_divulgado.descricao|truncatechars:80 }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if post.conteudo %}<p class="mb-2">{{ post.conteudo }}</p>{% endif %}
-                    {% if post.imagem %}
-                    <img src="{{ post.imagem.url }}" alt="Imagem do post" class="img-fluid rounded mb-2">
-                    {% endif %}
-                    <!-- Comentários -->
-                    <div class="mt-3">
-                        <h6 class="fw-bold mb-2">Comentários</h6>
-                        {% for comentario in post.comentarios.all %}
-                        {% if not comentario.comentario_pai %}
-                        <div class="d-flex align-items-start mb-2">
-                            {% if comentario.autor.perfil.foto %}
-                                <img src="{{ comentario.autor.perfil.foto.url }}" alt="User" class="rounded-circle me-2" width="32" height="32">
-                            {% else %}
-                                <img src="{% static 'img/default-profile.png' %}" alt="User" class="rounded-circle me-2" width="32" height="32">
-                            {% endif %}
-                            <div class="bg-light rounded px-3 py-2 flex-grow-1">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>{{ comentario.autor.get_full_name|default:comentario.autor.username }}</strong>
-                                        <span class="text-muted small">• {{ comentario.data_criacao|timesince }} atrás</span>
-                                    </div>
-                                    <div class="ms-2">
-                                        <a href="#" class="btn btn-link btn-sm p-0 text-primary reply-btn" data-comentario-id="{{ comentario.pk }}" title="Responder"><i class="fas fa-reply"></i></a>
-                                        {% if user == comentario.autor or user == post.autor %}
-                                        <form method="post" class="d-inline">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="delete_comentario_id" value="{{ comentario.pk }}">
-                                            <button type="submit" class="btn btn-link btn-sm text-danger p-0" title="Excluir comentário"><i class="fas fa-trash"></i></button>
-                                        </form>
+                            <div class="mt-1">{{ comentario.texto }}</div>
+                            <!-- Respostas -->
+                            {% for resposta in comentario.respostas.all %}
+                                <div class="ms-4 mt-1">
+                                    <div class="d-flex align-items-start pb-2 border-bottom" style="border-color: #f0f0f0 !important;">
+                                        {% if resposta.autor.perfil.foto %}
+                                            <img src="{{ resposta.autor.perfil.foto.url }}" alt="User" class="rounded-circle me-2" width="28" height="28">
+                                        {% else %}
+                                            <img src="{% static 'img/default-profile.png' %}" alt="User" class="rounded-circle me-2" width="28" height="28">
                                         {% endif %}
-                                    </div>
-                                </div>
-                                <div>{{ comentario.texto }}</div>
-                                <!-- Respostas -->
-                                {% for resposta in comentario.respostas.all %}
-                                <div class="d-flex align-items-start mt-2 ms-4">
-                                    {% if resposta.autor.perfil.foto %}
-                                        <img src="{{ resposta.autor.perfil.foto.url }}" alt="User" class="rounded-circle me-2" width="28" height="28">
-                                    {% else %}
-                                        <img src="{% static 'img/default-profile.png' %}" alt="User" class="rounded-circle me-2" width="28" height="28">
-                                    {% endif %}
-                                    <div class="bg-white border rounded px-2 py-1 flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <strong>{{ resposta.autor.get_full_name|default:resposta.autor.username }}</strong>
-                                                <span class="text-muted small">• {{ resposta.data_criacao|timesince }} atrás</span>
+                                        <div class="bg-light rounded px-2 py-1 flex-grow-1 w-100">
+                                            <div class="d-flex justify-content-between align-items-start w-100">
+                                                <div>
+                                                    <strong>{{ resposta.autor.get_full_name|default:resposta.autor.username }}</strong>
+                                                    <span class="text-muted small">• {{ resposta.data_criacao|timesince }} atrás</span>
+                                                </div>
+                                                <div class="ms-2">
+                                                    {% if user == resposta.autor or user == post.autor %}
+                                                    <form method="post" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="delete_comentario_id" value="{{ resposta.pk }}">
+                                                        <button type="submit" class="btn btn-link btn-sm text-danger p-0" title="Excluir resposta"><i class="fas fa-trash"></i></button>
+                                                    </form>
+                                                    {% endif %}
+                                                </div>
                                             </div>
-                                            <div class="ms-2">
-                                                <a href="#" class="btn btn-link btn-sm p-0 text-primary reply-btn" data-comentario-id="{{ resposta.pk }}" title="Responder"><i class="fas fa-reply"></i></a>
-                                                {% if user == resposta.autor or user == post.autor %}
-                                                <form method="post" class="d-inline">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="delete_comentario_id" value="{{ resposta.pk }}">
-                                                    <button type="submit" class="btn btn-link btn-sm text-danger p-0" title="Excluir resposta"><i class="fas fa-trash"></i></button>
-                                                </form>
-                                                {% endif %}
-                                            </div>
+                                            <div class="mt-1">{{ resposta.texto }}</div>
                                         </div>
-                                        <div>{{ resposta.texto }}</div>
                                     </div>
                                 </div>
-                                {% endfor %}
-                                <!-- Formulário de resposta (inserido via JS) -->
-                                <div class="reply-form-container mt-2" id="reply-form-{{ comentario.pk }}"></div>
-                            </div>
+                            {% endfor %}
+                            <!-- Formulário de resposta (inserido via JS) -->
+                            <div class="reply-form-container mt-2" id="reply-form-{{ comentario.pk }}"></div>
                         </div>
-                        {% endif %}
-                        {% empty %}
-                        <div class="text-muted small">Nenhum comentário ainda.</div>
-                        {% endfor %}
-                        <!-- Formulário de comentário -->
-                        <form method="post" class="d-flex align-items-center mt-2" id="main-comment-form-{{ post.pk }}">
-                            {% csrf_token %}
-                            <input type="hidden" name="comentario_post_id" value="{{ post.pk }}">
-                            <input type="hidden" name="comentario_pai_id" value="">
-                            <input type="text" name="comentario_texto" class="form-control me-2" placeholder="Escreva um comentário..." maxlength="300" required>
-                            <button type="submit" class="btn btn-outline-primary">Comentar</button>
-                        </form>
                     </div>
+                    {% endif %}
+                    {% empty %}
+                    <div class="text-muted small">Nenhum comentário ainda.</div>
+                    {% endfor %}
+                    <!-- Formulário de comentário -->
+                    <form method="post" class="d-flex align-items-center mt-2" id="main-comment-form-{{ post.pk }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="comentario_post_id" value="{{ post.pk }}">
+                        <input type="hidden" name="comentario_pai_id" value="">
+                        <input type="text" name="comentario_texto" class="form-control me-2" placeholder="Escreva um comentário..." maxlength="300" required>
+                        <button type="submit" class="btn btn-outline-primary">Comentar</button>
+                    </form>
                 </div>
             </div>
             {% empty %}
             <div class="alert alert-info text-center">Nenhuma postagem ainda. Seja o primeiro a postar!</div>
             {% endfor %}
         </div>
-        <!-- Sugestões -->
+        <div class="divider-full-height"></div>
         <div class="col-lg-5">
             <div class="card mb-4">
                 <div class="card-header bg-white fw-bold">Sugestões de Sites</div>
@@ -160,16 +166,20 @@
                     <div class="d-flex flex-column gap-3">
                         {% if sugestoes %}
                             {% for site in sugestoes %}
-                            <a href="{% url 'site_resumo' site.pk %}" class="suggestion-card d-flex align-items-center p-2 rounded shadow-sm text-decoration-none" style="background: #fff;">
+                            <div class="suggestion-card d-flex align-items-center p-2 rounded shadow-sm bg-white position-relative" style="transition: box-shadow 0.2s;">
                                 {% if site.imagem %}
-                                    <img src="{{ site.imagem.url }}" width="36" height="36" class="me-3 rounded" alt="{{ site.nome }}">
+                                    <img src="{{ site.imagem.url }}" width="44" height="44" class="me-3 rounded-circle border" alt="{{ site.nome }}">
                                 {% else %}
-                                    <span class="me-3 d-flex align-items-center justify-content-center bg-light rounded" style="width:36px; height:36px;"><i class="fas fa-globe fa-lg text-secondary"></i></span>
+                                    <span class="me-3 d-flex align-items-center justify-content-center bg-light rounded-circle border" style="width:44px; height:44px;"><i class="fa-solid fa-globe fa-lg text-secondary"></i></span>
                                 {% endif %}
                                 <div class="flex-grow-1">
-                                    <span class="fw-bold">{{ site.nome }}</span>
+                                    <span class="fw-bold d-block" style="font-size:1.08rem;">{{ site.nome }}</span>
+                                    {% if site.resumo %}
+                                    <span class="text-muted small d-block">{{ site.resumo|truncatechars:48 }}</span>
+                                    {% endif %}
                                 </div>
-                            </a>
+                                <a href="{{ site.url }}" target="_blank" class="btn btn-outline-primary btn-sm ms-2" title="Visitar site"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </div>
                             {% endfor %}
                         {% else %}
                             <div class="text-muted text-center">Nenhum site parceiro sugerido no momento.</div>
@@ -180,39 +190,51 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
 <style>
+.suggestion-card {
+    transition: box-shadow 0.25s, background 0.25s, transform 0.22s;
+    cursor: pointer;
+    border: 1.5px solid #f0f0f0;
+}
 .suggestion-card:hover {
-    background: #f8f9fa !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: linear-gradient(90deg, #f8f9fa 60%, #eaf6ff 100%) !important;
+    box-shadow: 0 6px 24px rgba(44,62,80,0.10), 0 1.5px 8px rgba(44,62,80,0.07);
     text-decoration: none;
-    transition: background 0.2s, box-shadow 0.2s;
+    transform: translateY(-4px) scale(1.025);
+    border-color: #b3d8ff;
+}
+.suggestion-card img, .suggestion-card .rounded-circle {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border: 2.5px solid #f0f0f0;
+    transition: border-color 0.22s, box-shadow 0.22s;
+}
+.suggestion-card:hover img, .suggestion-card:hover .rounded-circle {
+    border-color: #3399ff;
+    box-shadow: 0 2px 12px rgba(51,153,255,0.13);
+}
+.suggestion-card .btn-outline-primary {
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.suggestion-card:hover .btn-outline-primary {
+    background: #3399ff;
+    color: #fff;
+    border-color: #3399ff;
 }
 </style>
 <script>
-// Responder comentário: insere formulário de resposta abaixo do comentário
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.reply-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                var comentarioId = this.getAttribute('data-comentario-id');
-                var container = document.getElementById('reply-form-' + comentarioId);
-                // Remove outros forms de resposta
-                document.querySelectorAll('.reply-form-container').forEach(function(c) { c.innerHTML = ''; });
-                // Cria formulário
-                container.innerHTML = `
-                    <form method="post" class="d-flex align-items-center mt-2">
-                        {% csrf_token %}
-                        <input type="hidden" name="comentario_post_id" value="{{ post.pk }}">
-                        <input type="hidden" name="comentario_pai_id" value="${comentarioId}">
-                        <input type="text" name="comentario_texto" class="form-control me-2" placeholder="Responder..." maxlength="300" required autofocus>
-                        <button type="submit" class="btn btn-outline-primary">Responder</button>
-                    </form>
-                `;
-                // Foca no input
-                var input = container.querySelector('input[name="comentario_texto"]');
-                if(input) input.focus();
-            });
-        });
-    });
-</script>
-{% endblock %} 
+function toggleComentarios(botao) {
+  const box = botao.nextElementSibling;
+  const opened = box.classList.toggle('open');
+  if (opened) {
+    box.style.maxHeight = box.scrollHeight + 'px';
+    botao.innerText = 'Esconder comentários';
+    botao.classList.add('open');
+  } else {
+    box.style.maxHeight = '0';
+    botao.innerText = 'Ver comentários';
+    botao.classList.remove('open');
+  }
+}
+</script> 

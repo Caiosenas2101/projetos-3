@@ -1,8 +1,30 @@
 {% load static %}
 <aside class="sidebar-murall">
-    <div class="logo">
-        <a href="{% url 'dashboard' %}">
-            <img src="{% static 'img/murall-logo.svg' %}" alt="Murall" height="40" class="me-2" style="max-width:160px;">
+    <div class="logo d-flex align-items-center justify-content-center mb-4" style="background: transparent;">
+        <a href="{% url 'dashboard' %}" class="d-flex align-items-center text-decoration-none">
+            <span class="murall-logo-text" style="font-family: 'Montserrat', Arial, sans-serif; font-weight: 900; font-size: 2.2rem; color: #54595F; letter-spacing: 2px; display: flex; align-items: center; gap: 12px;">
+                <svg class="murall-logo-icon" width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="8" height="4" fill="#D32F2F"/>
+                    <rect x="11" y="1" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="25" y="1" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="1" y="7" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="15" y="7" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="29" y="7" width="8" height="4" fill="#D32F2F"/>
+                    <rect x="1" y="13" width="8" height="4" fill="#D32F2F"/>
+                    <rect x="11" y="13" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="25" y="13" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="1" y="19" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="15" y="19" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="29" y="19" width="8" height="4" fill="#D32F2F"/>
+                    <rect x="1" y="25" width="8" height="4" fill="#D32F2F"/>
+                    <rect x="11" y="25" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="25" y="25" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="1" y="31" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="15" y="31" width="12" height="4" fill="#D32F2F"/>
+                    <rect x="29" y="31" width="8" height="4" fill="#D32F2F"/>
+                </svg>
+                MURALL
+            </span>
         </a>
     </div>
     <nav class="nav flex-column">
